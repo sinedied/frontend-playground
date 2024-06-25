@@ -1,0 +1,10 @@
+{
+  "vanilla": {
+    "html": { "cmd": "echo '<!doctype html><html><body>Hello world</body></html>' > index.html", "makeDir": true },
+    "vite": { "cmd": "npx create-vite@latest vanilla-vite --template vanilla-ts" }
+  },
+  "angular": {
+    ".": { "cmd": "npx @angular/cli@latest new angular --defaults --skip-git --skip-install" },
+    "minimal": { "cmd": "npx @angular/cli@latest new angular-minimal --defaults --skip-git --skip-install --minimal --strict --standalone --style css --routing false --skip-tests --inline-style --inline-template" }
+  },
+}

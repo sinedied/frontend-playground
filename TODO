@@ -1,0 +1,7 @@
+- [ ] add parse args
+- [ ] add euo errors
+- [ ] --name <template>
+- [ ] --category <cat>
+- [ ] Dockerfile / devcontainer
+- [ ] github actions
+
