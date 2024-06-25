@@ -37,6 +37,7 @@ gen() {
   pushd "$base_dir" > /dev/null
   if [ -d "$name" ]; then
     echo "Skipping $name (already exists)"
+    popd > /dev/null
     return
   fi
   echo "Generating $base_dir/$name..."
@@ -92,7 +93,7 @@ gen vanilla vanilla-vite "npx create-vite@latest vanilla-vite --template vanilla
 # Angular
 gen angular angular "npx @angular/cli@latest new angular --defaults --skip-git --skip-install"
 gen angular angular-minimal "npx @angular/cli@latest new angular-minimal --defaults --skip-git --skip-install --minimal --strict --standalone --style css --routing false --skip-tests --inline-style --inline-template"
-gen angular angular-scully "npx @angular/cli@latest new angular-scully --defaults --skip-git --skip-install --minimal && cd angular-scully && nofail \"npx @angular/cli@latest add --skip-confirmation --defaults @scullyio/init@latest\" --force"
+# gen angular angular-scully "npx @angular/cli@latest new angular-scully --defaults --skip-git --skip-install --minimal && cd angular-scully && nofail \"npx @angular/cli@latest add --skip-confirmation --defaults --force @scullyio/init@latest\""
 # angular-ssr
 # gen angular angular-analog "npx create-analog@latest"
 # gen angular angular-universal "npx @angular/cli@latest new angular-universal --defaults --skip-git --skip-install --minimal && cd angular-universal && npx @angular/cli@latest add --skip-confirmation --defaults @nguniversal/express-engine"
@@ -112,7 +113,7 @@ gen react react-vite "npx create-vite@latest react-vite --template react-ts"
 # Vue
 gen vue vue "npx create-vue@latest vue --default"
 gen vue vue-vite "npx create-vite@latest vue-vite --template vue-ts"
-gen vue nuxtjs "npx create-nuxt-app@latest nuxtjs --answers '{\"name\":\"nuxt\",\"language\":\"ts\",\"pm\":\"npm\",\"ui\":\"none\",\"target\":\"static\",\"features\":[],\"linter\":[],\"test\":\"none\",\"mode\":\"universal\",\"devTools\":[]}'"
+# gen vue nuxtjs "npx create-nuxt-app@latest nuxtjs --answers '{\"name\":\"nuxt\",\"language\":\"ts\",\"pm\":\"npm\",\"ui\":\"none\",\"target\":\"static\",\"features\":[],\"linter\":[],\"test\":\"none\",\"mode\":\"universal\",\"devTools\":[]}'"
 gen vue vuepress "autoenter npx -y create-vuepress-site@latest vuepress"
 # gen vitepress "npm init -y && npm i -D vitepress && mkdir docs && echo '# Hello VitePress' > docs/index.md && node -p $'JSON.stringify({ ...require(\'./package.json\'), scripts: { \'docs:dev\': \'vitepress dev docs\', \'docs:build\': \'vitepress build docs\', \'docs:serve\': \'vitepress serve docs\' }}, null, 2)' > package.json.new && mv package.json.new package.json" true
 # gen ionic-vue "autoenter npx -y @ionic/cli@latest start ionic-vue blank --type vue --no-deps --no-git"
