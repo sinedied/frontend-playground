@@ -136,7 +136,7 @@ gen solid solid-start "autoenter npx create-solid@latest solid-start --solid-sta
 gen solid solid-vite "npx create-vite@latest solid-vite --template solid-ts"
 
 # Qwik
-gen qwik qwik "npx create-qwik@latest basic qwik"
+gen qwik qwik "npx create-qwik@latest empty qwik"
 gen qwik qwik-vite "npx create-vite@latest qwik-vite --template qwik-ts"
 
 # Other
