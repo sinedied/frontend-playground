@@ -52,14 +52,18 @@ gen() {
   else
     eval "$cmd"
   fi
-  rm -rf .git || true
-  if [ "$npm_install" == true ]; then
-    npm install || true
-  fi
   popd > /dev/null
   if [ -n "$rename_dir" ]; then
     mv "$rename_dir" "$name"
   fi
+  pushd "$name" > /dev/null
+  rm -rf .git || true
+  if [ "$npm_install" == true ]; then
+    npm install || true
+  else
+    rm -rf node_modules || true
+  fi
+  popd > /dev/null
   popd > /dev/null
 }
 
@@ -93,18 +97,18 @@ gen vanilla vanilla-vite "npx create-vite@latest vanilla-vite --template vanilla
 # Angular
 gen angular angular "npx @angular/cli@latest new angular --defaults --skip-git --skip-install"
 gen angular angular-minimal "npx @angular/cli@latest new angular-minimal --defaults --skip-git --skip-install --minimal --strict --standalone --style css --routing false --skip-tests --inline-style --inline-template"
+gen angular angular-ionic "autoenter npx -y @ionic/cli@latest start angular-ionic blank --type angular-standalone --no-deps --no-git"
+# gen angular angular-analog "npx create-analog@latest"
 # gen angular angular-scully "npx @angular/cli@latest new angular-scully --defaults --skip-git --skip-install --minimal && cd angular-scully && nofail \"npx @angular/cli@latest add --skip-confirmation --defaults --force @scullyio/init@latest\""
 # angular-ssr
-# gen angular angular-analog "npx create-analog@latest"
 # gen angular angular-universal "npx @angular/cli@latest new angular-universal --defaults --skip-git --skip-install --minimal && cd angular-universal && npx @angular/cli@latest add --skip-confirmation --defaults @nguniversal/express-engine"
-# gen ionic-angular "autoenter npx -y @ionic/cli@latest start ionic-angular blank --type angular --no-deps --no-git"
 
 # React
-# gen react "npx create-react-app@latest react-app" false react-app
+gen react react "npx create-react-app@latest react-app" false react-app
 gen react react-vite "npx create-vite@latest react-vite --template react-ts"
+gen react react-ionic "autoenter npx -y @ionic/cli@latest start react-ionic blank --type react --no-deps --no-git"
+gen react react-astro "npm create astro@latest -- --template framework-react react-astro --no-install --no-git --yes --typescript strictest"
 # gen gatsby "GATSBY_LOGGER=yurnalist npx create-gatsby@latest -y --no-color gatsby"
-# gen ionic-react "autoenter npx -y @ionic/cli@latest start ionic-react blank --type react --no-deps --no-git"
-# gen astro-react "npx degit withastro/astro/examples/framework-react#latest astro-react"
 # gen nextjs "npx create-next-app@latest nextjs --use-npm"
 # gen remix "autoenter npx -y create-remix@latest remix --no-install"
 # gen react-static "npx react-static@latest create -n react-static -t basic"
@@ -113,16 +117,16 @@ gen react react-vite "npx create-vite@latest react-vite --template react-ts"
 # Vue
 gen vue vue "npx create-vue@latest vue --default"
 gen vue vue-vite "npx create-vite@latest vue-vite --template vue-ts"
-# gen vue nuxtjs "npx create-nuxt-app@latest nuxtjs --answers '{\"name\":\"nuxt\",\"language\":\"ts\",\"pm\":\"npm\",\"ui\":\"none\",\"target\":\"static\",\"features\":[],\"linter\":[],\"test\":\"none\",\"mode\":\"universal\",\"devTools\":[]}'"
 gen vue vuepress "autoenter npx -y create-vuepress-site@latest vuepress"
+gen vue vue-ionic "autoenter npx -y @ionic/cli@latest start vue-ionic blank --type vue --no-deps --no-git"
+gen vue vue-astro "npm create astro@latest -- --template framework-vue vue-astro --no-install --no-git --yes --typescript strictest"
+# gen vue nuxtjs "npx create-nuxt-app@latest nuxtjs --answers '{\"name\":\"nuxt\",\"language\":\"ts\",\"pm\":\"npm\",\"ui\":\"none\",\"target\":\"static\",\"features\":[],\"linter\":[],\"test\":\"none\",\"mode\":\"universal\",\"devTools\":[]}'"
 # gen vitepress "npm init -y && npm i -D vitepress && mkdir docs && echo '# Hello VitePress' > docs/index.md && node -p $'JSON.stringify({ ...require(\'./package.json\'), scripts: { \'docs:dev\': \'vitepress dev docs\', \'docs:build\': \'vitepress build docs\', \'docs:serve\': \'vitepress serve docs\' }}, null, 2)' > package.json.new && mv package.json.new package.json" true
-# gen ionic-vue "autoenter npx -y @ionic/cli@latest start ionic-vue blank --type vue --no-deps --no-git"
-# gen astro-vue "npx degit withastro/astro/examples/framework-vue#latest astro-vue"
 
 # Svelte
 gen svelte svelte "autoenter npx create-svelte@latest svelte"
 gen svelte svelte-vite "npx create-vite@latest svelte-vite --template svelte-ts"
-# gen astro-svelte "npx degit withastro/astro/examples/framework-svelte#latest astro-svelte"
+gen svelte svelte-astro "npm create astro@latest -- --template framework-svelte svelte-astro --no-install --no-git --yes --typescript strictest"
 
 # Lit
 gen lit lit "npx degit lit/lit-element-starter-ts lit"
@@ -134,10 +138,15 @@ gen lit lit-astro "npx degit withastro/astro/examples/framework-lit#latest lit-a
 gen solid solid "npx degit solidjs/templates/ts solid"
 gen solid solid-start "autoenter npx create-solid@latest solid-start --solid-start"
 gen solid solid-vite "npx create-vite@latest solid-vite --template solid-ts"
+gen solid solid-astro "npm create astro@latest -- --template framework-solid solid-astro --no-install --no-git --yes --typescript strictest"
 
 # Qwik
 gen qwik qwik "npx create-qwik@latest empty qwik"
 gen qwik qwik-vite "npx create-vite@latest qwik-vite --template qwik-ts"
+
+# Preact
+# Alpine
+# Riot
 
 # Other
 # gen docsify "npx docsify-cli@latest init docsify"
